@@ -10,6 +10,7 @@ namespace Data.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<CompanyInformation> CompanyInformationRepository { get; }
+        IRepository<Company> CompanyRepository { get; }
+        IRepository<Storer> StorerRepository { get; }
     }
 }

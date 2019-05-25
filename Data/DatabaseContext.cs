@@ -31,8 +31,8 @@ namespace Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //TODO Mapping
-            modelBuilder.Configurations.Add(new CompanyInformationMapping());
-            
+            modelBuilder.Configurations.Add(new CompanyMapping());
+            modelBuilder.Configurations.Add(new StorerMapping());
 
             base.OnModelCreating(modelBuilder);
         }

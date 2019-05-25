@@ -8,12 +8,12 @@ using Models.Models;
 
 namespace Models.Mapping
 {
-  public class CompanyInformationMapping : EntityTypeConfiguration<CompanyInformation>
+    public class PageMapping : EntityTypeConfiguration<Page>
     {
-        public CompanyInformationMapping()
+        public PageMapping()
         {
             // Table & Column Mappings
-            this.ToTable("CompanyInformation");
+            this.ToTable("Pages");
         }
     }
-}  
+}

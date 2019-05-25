@@ -47,6 +47,7 @@
     <Compile Include="Core\CheckError.cs" />
     <Compile Include="Core\Logger.cs" />
     <Compile Include="Core\Ref.cs" />
+    <Compile Include="Object\ObjectResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

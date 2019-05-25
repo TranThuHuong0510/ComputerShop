@@ -16,7 +16,8 @@ namespace Data.UnitOfWork
         private bool disposed = false;
         private DatabaseContext _dataContext;
 
-        private  IRepository<CompanyInformation> _companyInformationRepository;
+        private  IRepository<Company> _companyRepository;
+        private IRepository<Storer> _storerRepository;
 
 
         public UnitOfWork()
@@ -27,13 +28,23 @@ namespace Data.UnitOfWork
         #endregion
 
         #region Public Repository Creation properties...
-        public IRepository<CompanyInformation> CompanyInformationRepository
+        public IRepository<Company> CompanyRepository
         {
             get
             {
-                if (this._companyInformationRepository == null)
-                    this._companyInformationRepository = new Repository<CompanyInformation>(_dataContext);
-                return _companyInformationRepository;
+                if (this._companyRepository == null)
+                    this._companyRepository = new Repository<Company>(_dataContext);
+                return _companyRepository;
+            }
+        }
+
+        public IRepository<Storer> StorerRepository
+        {
+            get
+            {
+                if (this._storerRepository == null)
+                    this._storerRepository = new Repository<Storer>(_dataContext);
+                return _storerRepository;
             }
         }
         #endregion

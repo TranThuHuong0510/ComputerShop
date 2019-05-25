@@ -51,8 +51,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Mapping\CompanyInformationMapping.cs" />
-    <Compile Include="Models\CompanyInformation.cs" />
+    <Compile Include="Abstract\AuditTable.cs" />
+    <Compile Include="Abstract\CommonTable.cs" />
+    <Compile Include="Abstract\IAuditTable.cs" />
+    <Compile Include="Abstract\ICommonTable.cs" />
+    <Compile Include="Mapping\CompanyMapping.cs" />
+    <Compile Include="Mapping\FooterMapping.cs" />
+    <Compile Include="Mapping\MenuGroupMapping.cs" />
+    <Compile Include="Mapping\MenuMapping.cs" />
+    <Compile Include="Mapping\OrderDetailMapping.cs" />
+    <Compile Include="Mapping\OrderMapping.cs" />
+    <Compile Include="Mapping\PageMapping.cs" />
+    <Compile Include="Mapping\StorerMapping.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\Footer.cs" />
+    <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\MenuGroup.cs" />
+    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\OrderDetail.cs" />
+    <Compile Include="Models\Page.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostGroup.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductGroup.cs" />
+    <Compile Include="Models\Storer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
