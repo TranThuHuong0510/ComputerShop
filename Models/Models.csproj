@@ -55,6 +55,7 @@
     <Compile Include="Abstract\CommonTable.cs" />
     <Compile Include="Abstract\IAuditTable.cs" />
     <Compile Include="Abstract\ICommonTable.cs" />
+    <Compile Include="Mapping\BranchMapping.cs" />
     <Compile Include="Mapping\CompanyMapping.cs" />
     <Compile Include="Mapping\FooterMapping.cs" />
     <Compile Include="Mapping\MenuGroupMapping.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Mapping\OrderMapping.cs" />
     <Compile Include="Mapping\PageMapping.cs" />
     <Compile Include="Mapping\StorerMapping.cs" />
+    <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Footer.cs" />
     <Compile Include="Models\Menu.cs" />

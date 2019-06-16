@@ -8,17 +8,14 @@ using System.Threading.Tasks;
 
 namespace Models.Models
 {
-    [Table("Storers")]
-    public class Storer
+    [Table("Branch")]
+    public class Branch
     {
         [Key]
         public Guid Id { get; set; }
-        public string Description { get; set; }
-        public Guid BranchId { get; set; }
+        public string BranchName { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
         public bool Active { get; set; }
-        public DateTime? AddDate { get; set; }
-        public DateTime? EditDate { get; set; }
-        public string AddWho { get; set; }
-        public string EditWho { get; set; }
     }
 }

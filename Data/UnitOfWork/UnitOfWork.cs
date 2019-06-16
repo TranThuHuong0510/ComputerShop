@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Data.UnitOfWork
 
         private  IRepository<Company> _companyRepository;
         private IRepository<Storer> _storerRepository;
+        private IRepository<Branch> _branchRepository;
 
 
         public UnitOfWork()
@@ -38,6 +40,16 @@ namespace Data.UnitOfWork
             }
         }
 
+        public IRepository<Branch> BranchRepository
+        {
+            get
+            {
+                if (this._branchRepository == null)
+                    this._branchRepository = new Repository<Branch>(_dataContext);
+                return _branchRepository;
+            }
+        }
+
         public IRepository<Storer> StorerRepository
         {
             get
@@ -48,6 +60,44 @@ namespace Data.UnitOfWork
             }
         }
         #endregion
+
+        /// <summary>
+        /// Save method.
+        /// </summary>
+        public async Task<bool> Save()
+        {
+            try
+            {
+                return _dataContext.SaveChanges() > 0;
+            }
+            catch (DbEntityValidationException e)
+            {
+                var errString = string.Empty;
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    errString +=
+                        string.Format(
+                            "{0}: Entity of type \"{1}\" in state \"{2}\" has the following validation errors:",
+                            DateTime.Now, eve.Entry.Entity.GetType().Name, eve.Entry.State) + Environment.NewLine;
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        errString +=
+                            string.Format("- Property: \"{0}\", Error: \"{1}\"", ve.PropertyName, ve.ErrorMessage) +
+                            Environment.NewLine;
+                    }
+                }
+                //System.IO.File.AppendAllLines(@"C:\errors.txt", outputLines);
+
+               // Logger.CreateLog(Logger.Levels.ERROR, this, "PdctUnitOfWork Save()", e, errString);
+                return false;
+            }
+            catch (Exception ex)
+            {
+               // Logger.CreateLog(Logger.Levels.ERROR, this, "PdctUnitOfWork Save()", ex, ex.Message);
+                return false;
+            }
+
+        }
 
         #region  dispose ...
         /// <summary>

@@ -44,7 +44,7 @@ namespace API.Controllers
                 };
 
                 return Ok(result);
-                // return InternalServerErrorResult(this, "PreparePdctArea(PdctHeaderViewModel viewModel)", ex.Message);
+                //return InternalServerErrorResult(this, "PreparePdctArea(PdctHeaderViewModel viewModel)", ex.Message);
             }
         }
 

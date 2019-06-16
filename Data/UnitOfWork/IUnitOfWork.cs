@@ -12,5 +12,6 @@ namespace Data.UnitOfWork
     {
         IRepository<Company> CompanyRepository { get; }
         IRepository<Storer> StorerRepository { get; }
+        IRepository<Branch> BranchRepository { get; }
     }
 }
