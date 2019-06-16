@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Repository;
 using Data.UnitOfWork;
 using Models.Models;
+using Service.Common;
 using Service.ViewModels;
 
 namespace Service
@@ -86,6 +89,28 @@ namespace Service
             {
                 //Logger.CreateLog(Logger.Levels.ERROR, this, "GetAllArea(bool? isActive)", ex, "isActive=" + isActive + ", " + ex.Message);
                 return false;
+            }
+
+        }
+
+        public async Task<IEnumerable<BranchDetail>> GetBranchDetail(Guid branchId)
+        {
+            try
+            {
+                var result = false;
+                var repository = new Repository<BranchDetail>();
+                SqlParameter[] prams =
+                {
+                    new SqlParameter { ParameterName = "@branchId", Value = branchId, DbType = DbType.Guid }
+                };
+                var retval = await repository.Get(Constants.StoreProcedure.GET_BRANCH_DETAIL, prams);
+
+                return retval;
+            }
+            catch (Exception ex)
+            {
+                //Logger.CreateLog(Logger.Levels.ERROR, this, "GetAllArea(bool? isActive)", ex, "isActive=" + isActive + ", " + ex.Message);
+                return null;
             }
 
         }

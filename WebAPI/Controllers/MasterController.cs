@@ -88,7 +88,15 @@ namespace API.Controllers
             try
 
             {
-                return Ok();
+                var branch = await _masterService.GetBranchDetail(branchId);
+                if (branch == null) return NotFound();
+                var result = new ObjectResult
+                {
+                    StatusCode = 201,
+                    Message = "Get data successfully",
+                    Result = branch
+                };
+                return Ok(result);
             }
             catch (Exception ex)
             {

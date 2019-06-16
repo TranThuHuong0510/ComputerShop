@@ -17,5 +17,10 @@ namespace Service.Common
             public static string AuthorizationError = "Your are not authorized";
             //public static string InternalServerError = "Internal Server Error Result";
         }
+
+        public static class StoreProcedure
+        {
+            public static string GET_BRANCH_DETAIL = "sp_Master_BranchDetail";
+        }
     }
 }
