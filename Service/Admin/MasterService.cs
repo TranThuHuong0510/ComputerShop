@@ -65,25 +65,30 @@ namespace Service
                     Active = true,
                     Phone = viewModel.Phone
                 };
-                await _unitOfWork.BranchRepository.Insert(branch);
+                var branchRepo = new Repository<Branch>();
+                await branchRepo.Insert(branch);
+               // await _unitOfWork.BranchRepository.Insert(branch);
 
                 // insert its storer
                 var storers = viewModel.Storers;
-                foreach(var storer in storers)
+                var storerRepo = new Repository<Storer>();
+                foreach (var storer in storers)
                 {
-                    await _unitOfWork.StorerRepository.Insert(new Storer
+                    var storerz = new Storer
                     {
                         Id = Guid.NewGuid(),
                         BranchId = branch.Id,
                         Description = storer.StorerName,
                         Active = true
-                    });
+                    };
+                    
+                    await storerRepo.Insert(storerz);
                 }
 
                 // save data
-                result = await _unitOfWork.Save();
+               // result = await _unitOfWork.Save();
 
-                return result;
+                return true;
             }
             catch (Exception ex)
             {
