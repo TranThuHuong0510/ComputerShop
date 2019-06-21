@@ -58,7 +58,7 @@ namespace WebAPI.Controllers
             };
             return Content(HttpStatusCode.Forbidden, resultObject, ApiUtils.MediaTypeFormatterJson);
         }
-       
+
 
         [ApiExplorerSettings(IgnoreApi = true)]
         public FormattedContentResult<ObjectResult> AuthorizationError()

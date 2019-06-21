@@ -28,7 +28,7 @@ namespace Models.Models
         public bool? HomeFlag { get; set; }
         public bool? HotFlag { get; set; }
         public int? ViewCount { get; set; }
-        public virtual PostGroup PostGroup {get;set;}
+        public virtual PostGroup PostGroup { get; set; }
 
     }
 }

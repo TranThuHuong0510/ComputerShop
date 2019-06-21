@@ -65,6 +65,7 @@ namespace API.Controllers
 
                 }
                 var output = await _masterService.InsertBranch(viewModel);
+                //var output = await _masterService.InsertBranch2(viewModel);
                 if (output == false) return InternalServerErrorResult();
                 var result = new ObjectResult
                 {
@@ -88,13 +89,13 @@ namespace API.Controllers
             try
 
             {
-                var branch = await _masterService.GetBranchDetail(branchId);
-                if (branch == null) return NotFound();
+                //var output = _masterService.GetBranchDetail(branchId);
+                var output = _masterService.GetBranchDetail2(branchId);
                 var result = new ObjectResult
                 {
                     StatusCode = 201,
                     Message = "Get data successfully",
-                    Result = branch
+                    Result = output
                 };
                 return Ok(result);
             }

@@ -23,10 +23,10 @@ namespace Common.Utility
         /// </summary>
         /// <param name="appSettingKey">AppSetting Key</param>
         /// <returns></returns>
-        public static string GetAppSetting(string appSettingKey)
-        {
-            return ConfigurationManager.AppSettings[appSettingKey];
-        }
+        //public static string GetAppSetting(string appSettingKey)
+        //{
+        //    return ConfigurationManager.AppSettings[appSettingKey];
+        //}
         /// <summary>
         /// Get Json Formatter
         /// </summary>

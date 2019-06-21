@@ -11,7 +11,7 @@ namespace Models.Abstract
         public bool Active { get; set; }
         public string AddWho { get; set; }
         public string EditWho { get; set; }
-        public DateTime AddDate { get; set; }
+        public DateTime? AddDate { get; set; }
         public DateTime? EditDate { get; set; }
     }
 }

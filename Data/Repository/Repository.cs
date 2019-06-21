@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Reflection;
+using System.Data;
 using Common.Core;
+using Data;
 
 namespace Data.Repository
 {
@@ -19,11 +19,6 @@ namespace Data.Repository
         public Repository()
         {
             _dataContext = new DatabaseContext();
-        }
-
-        public Repository(DatabaseContext dataContext)
-        {
-            _dataContext = dataContext;
         }
         #region IRepository<T> Members
 
@@ -713,24 +708,6 @@ namespace Data.Repository
                 return null;
             }
         }
-
-        /// <summary>
-        /// Get Multiple Result Nine Object
-        /// </summary>
-        /// <typeparam name="T1">Class</typeparam>
-        /// <typeparam name="T2">Class</typeparam>
-        /// <typeparam name="T3">Class</typeparam>
-        /// <typeparam name="T4">Class</typeparam>
-        /// <typeparam name="T5">Class</typeparam>
-        /// <typeparam name="T6">Class</typeparam>
-        /// <typeparam name="T7">Class</typeparam>
-        /// <typeparam name="T8">Class</typeparam>
-        /// <typeparam name="T9">Class</typeparam>
-        /// <param name="storedProcedureName">stored procedure name</param>
-        /// <param name="parameters">parameters[]</param>
-        /// <param name="checkError">Check Error</param>
-        /// <returns></returns>
-       
         #endregion
 
         public IQueryable<T> AsQueryable()

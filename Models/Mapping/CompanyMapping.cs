@@ -8,7 +8,7 @@ using Models.Models;
 
 namespace Models.Mapping
 {
-  public class CompanyMapping : EntityTypeConfiguration<Company>
+    public class CompanyMapping : EntityTypeConfiguration<Company>
     {
         public CompanyMapping()
         {
@@ -16,4 +16,4 @@ namespace Models.Mapping
             this.ToTable("Companies");
         }
     }
-}  
+}
