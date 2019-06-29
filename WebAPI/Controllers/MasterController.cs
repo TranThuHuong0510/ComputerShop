@@ -18,7 +18,7 @@ namespace API.Controllers
     {
         private readonly MasterService _masterService = new MasterService();
 
-        #region Product_test
+        #region Product
         [Route("Product")]
         [HttpPost]
         public async Task<IHttpActionResult> Product([FromBody] ProductViewModel viewModel)
