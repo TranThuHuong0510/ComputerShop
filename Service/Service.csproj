@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BranchDetail.cs" />
     <Compile Include="ViewModels\BranchDetailViewModel.cs" />
+    <Compile Include="ViewModels\ProductViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -13,16 +13,13 @@ namespace Models.Models
     public class ProductGroup : AuditTable
     {
         [Key]
-        public Guid Id { get; set; }
+        public int ID { get; set; }
         [Required]
-        [MaxLength(50)]
-        public string Name { get; set; }
+        public int ProductGroupID { get; set; }
         [Required]
-        [MaxLength(256)]
-        public string Alias { get; set; }
-        [Required]
+        [MaxLength(200)]
         public string Description { get; set; }
-        public Guid? ParentId { get; set; }
+        //public bool Active { get; set; }
         public string Image { get; set; }
         public virtual IEnumerable<Product> Products { get; set; }
     }

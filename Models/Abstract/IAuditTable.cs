@@ -8,7 +8,7 @@ namespace Models.Abstract
 {
     public interface IAuditTable : ICommonTable
     {
-        string MetaKeyword { get; set; }
-        string MetaDescription { get; set; }
+        //string MetaKeyword { get; set; }
+        //string MetaDescription { get; set; }
     }
 }

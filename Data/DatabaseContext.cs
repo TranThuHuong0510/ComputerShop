@@ -34,6 +34,7 @@ namespace Data
             modelBuilder.Configurations.Add(new CompanyMapping());
             modelBuilder.Configurations.Add(new StorerMapping());
             modelBuilder.Configurations.Add(new BranchMapping());
+            modelBuilder.Configurations.Add(new ProductMapping());
 
             base.OnModelCreating(modelBuilder);
         }

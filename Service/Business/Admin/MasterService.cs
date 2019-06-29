@@ -31,16 +31,19 @@ namespace Service
             try
             {
                 var x = new Repository<Storer>();
-                //var storers = await _unitOfWork.StorerRepository.GetAll();
-                var storers = await x.GetAll();
+                var result = await x.Get(Constants.StoreProcedure.TEST);
 
-                return storers.Select(y => new
-                {
-                    y.Active,
-                    y.Description,
-                    y.BranchId,
-                    y.EditDate
-                });
+                //var storers = await _unitOfWork.StorerRepository.GetAll();
+                //var storers = await x.GetAll();
+
+                //return storers.Select(y => new
+                //{
+                //    y.Active,
+                //    y.Description,
+                //    y.BranchId,
+                //    y.EditDate
+                //});
+                return result;
             }
             catch (Exception ex)
             {
@@ -82,7 +85,7 @@ namespace Service
                     });
                 }
 
-                // save data
+                // save data=>true/false
                 result = await _unitOfWork.Save();
 
                 return result;
@@ -94,7 +97,7 @@ namespace Service
             }
 
         }
-
+        //
         public async Task<bool> InsertBranch2(BranchDetailViewModel viewModel)
         {
             try
@@ -180,11 +183,12 @@ namespace Service
             try
             {
                 var repository = new Repository<BranchDetail>();
-                SqlParameter[] prams =
-           {
-                new SqlParameter { ParameterName = "@branchId", Value = branchId, DbType = DbType.Guid }
-                
-            };
+
+                SqlParameter[] prams = 
+                {
+                    new SqlParameter { ParameterName = "@branchId", Value = branchId, DbType = DbType.Guid}
+                };
+
                 var result = await repository.Get(Constants.StoreProcedure.GET_BRANCH_DETAIL, prams);
 
                 if (!result.Any()) return new BranchDetailViewModel();
@@ -209,9 +213,121 @@ namespace Service
                 //Logger.CreateLog(Logger.Levels.ERROR, this, "GetAllArea(bool? isActive)", ex, "isActive=" + isActive + ", " + ex.Message);
                 return null;
             }
+        }
+        #endregion
+        #region Insert Product
+        public async Task<bool> InsertProduct(ProductViewModel viewModel)
+        {
+            try
+            {
+                var result = false;
+
+                // insert product
+                var product = new Product
+                {
+                    ID = Guid.NewGuid(),
+                    ProductID = viewModel.ProductID,
+                    DescriptionVN = viewModel.DescriptionVN,
+                    DescriptionEN = viewModel.DescriptionEN,
+                    ProductGroupID = viewModel.ProductGroupID
+                };
+                _unitOfWork.ProductRepository.Insert(product);
+
+                // save data=>true/false
+                result = await _unitOfWork.Save();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.CreateLog(Logger.Levels.ERROR, this, "GetAllArea(bool? isActive)", ex, "isActive=" + isActive + ", " + ex.Message);
+                return false;
+            }
+
+        }
+        public async Task<bool> InsertProduct2(ProductViewModel viewModel)
+        {
+            try
+            {
+                var productRepository = new Repository<Product>();
+                // insert branch
+                var product_ = new Product
+                {
+                    ID = Guid.NewGuid(),
+                    ProductID = viewModel.ProductID,
+                    DescriptionVN = viewModel.DescriptionVN,
+                    DescriptionEN = viewModel.DescriptionEN,
+                    ProductGroupID = viewModel.ProductGroupID
+                };
+                await productRepository.Insert(product_);
+
+                // save data
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //Logger.CreateLog(Logger.Levels.ERROR, this, "GetAllArea(bool? isActive)", ex, "isActive=" + isActive + ", " + ex.Message);
+                return false;
+            }
 
         }
         #endregion
+        #region Get_Product
+        public async Task<ProductViewModel> GetProduct(Guid id)
+        {
+            try
+            {
+                var product_ = await _unitOfWork.ProductRepository
+                    .GetById(id);
 
+                var result = new ProductViewModel
+                {
+                    ProductID = product_.ProductID,
+                    ProductGroupID = product_.ProductGroupID,
+                    DescriptionVN = product_.DescriptionVN,
+                    DescriptionEN = product_.DescriptionEN
+                };
+                return result;
+            }
+            catch (Exception ex)
+            {
+                //Logger.CreateLog(Logger.Levels.ERROR, this, "GetAllArea(bool? isActive)", ex, "isActive=" + isActive + ", " + ex.Message);
+                return null;
+            }
+
+        }
+        public async Task<ProductViewModel> GetProduct2(string productid)
+        {
+            try
+            {
+                var repository = new Repository<ProductViewModel>();
+
+                SqlParameter[] prams =
+                {
+                    new SqlParameter { ParameterName = "@ProductID", Value = productid, DbType = DbType.String}
+                };
+
+                var result = await repository.Get(Constants.StoreProcedure.GET_PRODUCT, prams);
+
+                if (!result.Any()) return new ProductViewModel();
+
+                var output = result.GroupBy(x => new { x.ProductID, x.ProductGroupID, x.DescriptionVN, x.DescriptionEN })
+                    .Select(y => new ProductViewModel
+                    {
+                        ProductID = y.Key.ProductID,
+                        ProductGroupID = y.Key.ProductGroupID,
+                        DescriptionVN = y.Key.DescriptionVN,
+                        DescriptionEN = y.Key.DescriptionEN
+                    }).FirstOrDefault();
+                return output;
+            }
+            catch (Exception ex)
+            {
+                //Logger.CreateLog(Logger.Levels.ERROR, this, "GetAllArea(bool? isActive)", ex, "isActive=" + isActive + ", " + ex.Message);
+                return null;
+            }
+        }
+        #endregion
     }
 }

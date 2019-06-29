@@ -8,8 +8,8 @@ namespace Models.Abstract
 {
     public class AuditTable : IAuditTable
     {
-        public string MetaKeyword { get; set; }
-        public string MetaDescription { get; set; }
+        //public string MetaKeyword { get; set; }
+        //public string MetaDescription { get; set; }
         public bool Active { get; set; }
         public string AddWho { get; set; }
         public string EditWho { get; set; }

@@ -18,6 +18,110 @@ namespace API.Controllers
     {
         private readonly MasterService _masterService = new MasterService();
 
+        #region Product
+        [Route("Product")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Product([FromBody] ProductViewModel viewModel)
+        {
+            try
+
+            {
+                if (!ModelState.IsValid)
+                {
+
+                    return DataValidationError(GetErrorMessages(ModelState));
+
+                }
+                var output = await _masterService.InsertProduct(viewModel);
+                //var output = await _masterService.InsertBranch2(viewModel);
+                if (output == false) return InternalServerErrorResult();
+                var result = new ObjectResult
+                {
+                    StatusCode = 201,
+                    Message = "Save data successfully",
+                    Result = output
+                };
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerErrorResult();
+            }
+        }
+
+        [Route("Product2")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Product2([FromBody] ProductViewModel viewModel)
+        {
+            try
+
+            {
+                if (!ModelState.IsValid)
+                {
+
+                    return DataValidationError(GetErrorMessages(ModelState));
+
+                }
+                var output = await _masterService.InsertProduct2(viewModel);
+                //var output = await _masterService.InsertBranch2(viewModel);
+                if (output == false) return InternalServerErrorResult();
+                var result = new ObjectResult
+                {
+                    StatusCode = 201,
+                    Message = "Save data successfully",
+                    Result = output
+                };
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerErrorResult();
+            }
+        }
+        [Route("Get_Product/{id}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> Get_Product([FromUri] Guid id)
+        {
+            try
+            {
+                var output = await _masterService.GetProduct(id);
+                var result = new ObjectResult
+                {
+                    StatusCode = 201,
+                    Message = "Get data successfully",
+                    Result = output
+                };
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFoundErrorResult();
+            }
+        }
+        [Route("Get_Product2/{ProductID}")]
+        [HttpGet]
+        public async Task<IHttpActionResult> Get_Product2([FromUri] string ProductID)
+        {
+            try
+            {
+                var output = await _masterService.GetProduct2(ProductID);
+                var result = new ObjectResult
+                {
+                    StatusCode = 201,
+                    Message = "Get data successfully",
+                    Result = output
+                };
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return NotFoundErrorResult();
+            }
+        }
+        #endregion
+
         #region BRANCH
         // GET: Master
         [Route("Storer")]
@@ -36,7 +140,7 @@ namespace API.Controllers
                     Result = output
                 };
 
-                return Ok(result);
+                return Ok(output);
             }
             catch (Exception ex)
             {
@@ -84,7 +188,7 @@ namespace API.Controllers
 
         [Route("Branch/{BranchId}")]
         [HttpGet]
-        public async Task<IHttpActionResult> BranchDetails([FromUri] Guid branchId)
+        public IHttpActionResult BranchDetails_([FromUri] Guid branchId)
         {
             try
 

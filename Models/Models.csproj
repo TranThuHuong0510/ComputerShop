@@ -88,6 +88,7 @@
     <Compile Include="Mapping\OrderDetailMapping.cs" />
     <Compile Include="Mapping\OrderMapping.cs" />
     <Compile Include="Mapping\PageMapping.cs" />
+    <Compile Include="Mapping\ProductMapping.cs" />
     <Compile Include="Mapping\StorerMapping.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Company.cs" />

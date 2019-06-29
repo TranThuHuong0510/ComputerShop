@@ -29,6 +29,7 @@ namespace Data.UnitOfWork
         private GenericRepository<Company> _companyRepository;
         private GenericRepository<Storer> _storerRepository;
         private GenericRepository<Branch> _branchRepository;
+        private GenericRepository<Product> _productRepository;
 
 
         #endregion
@@ -54,6 +55,7 @@ namespace Data.UnitOfWork
             }
         }
 
+
         public GenericRepository<Storer> StorerRepository
         {
             get
@@ -61,6 +63,14 @@ namespace Data.UnitOfWork
                 if (this._storerRepository == null)
                     this._storerRepository = new GenericRepository<Storer>(_dataContext);
                 return _storerRepository;
+            }
+        }
+        public GenericRepository<Product> ProductRepository
+        {
+            get {
+                if (this._productRepository == null)
+                    this._productRepository = new GenericRepository<Product>(_dataContext);
+                return _productRepository;
             }
         }
         /// <summary>

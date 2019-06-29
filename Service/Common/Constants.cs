@@ -21,6 +21,9 @@ namespace Service.Common
         public static class StoreProcedure
         {
             public static string GET_BRANCH_DETAIL = "dbo.sp_Master_GetBranchDetail";
+            public static string TEST = "dbo.Test";
+            public static string GET_PRODUCT = "dbo.GET_PRODUCT";
+
         }
     }
 }
