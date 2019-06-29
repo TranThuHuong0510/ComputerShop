@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Data.Repository;
@@ -31,16 +32,19 @@ namespace Service
             try
             {
                 var x = new Repository<Storer>();
-                //var storers = await _unitOfWork.StorerRepository.GetAll();
-                var storers = await x.GetAll();
+                var result = await x.Get(Constants.StoreProcedure.TEST);
 
-                return storers.Select(y => new
-                {
-                    y.Active,
-                    y.Description,
-                    y.BranchId,
-                    y.EditDate
-                });
+                //var storers = await _unitOfWork.StorerRepository.GetAll();
+                //var storers = await x.GetAll();
+
+                //return storers.Select(y => new
+                //{
+                //    y.Active,
+                //    y.Description,
+                //    y.BranchId,
+                //    y.EditDate
+                //});
+                return result;
             }
             catch (Exception ex)
             {
@@ -147,10 +151,11 @@ namespace Service
             {
                 var brach = await _unitOfWork.BranchRepository
                     .GetById(branchId);
+                Expression<Func<Storer, bool>> expression = x => x.BranchId == branchId && x.Active;
+                //var storers = await _unitOfWork.StorerRepository
+                //    .Get(x => x.BranchId == branchId && x.Active);
 
-                var storers = await _unitOfWork.StorerRepository
-                    .Get(x => x.BranchId == branchId && x.Active);
-
+                var storers = await _unitOfWork.StorerRepository.Get(expression);
                 var storerViewModels = storers.Select(x => new StorerViewModel
                 {
                     StorerId = x.Id,
@@ -180,11 +185,12 @@ namespace Service
             try
             {
                 var repository = new Repository<BranchDetail>();
+
                 SqlParameter[] prams =
-           {
-                new SqlParameter { ParameterName = "@branchId", Value = branchId, DbType = DbType.Guid }
-                
-            };
+                {
+                    new SqlParameter { ParameterName = "@branchId", Value = branchId, DbType = DbType.Guid}
+                };
+
                 var result = await repository.Get(Constants.StoreProcedure.GET_BRANCH_DETAIL, prams);
 
                 if (!result.Any()) return new BranchDetailViewModel();
@@ -211,6 +217,28 @@ namespace Service
             }
 
         }
+
+
+        public async Task<List<int>> CountStorerOfBranch(Guid branchId)
+        {
+            var resRepository = new Repository<object>();
+            SqlParameter[] prams = {
+                new SqlParameter{ParameterName="@branchId", Value = branchId, DbType = DbType.Guid },
+                new SqlParameter{ParameterName="@result", Direction = ParameterDirection.Output, DbType = DbType.Int32 },
+                new SqlParameter{ParameterName="@result2", Direction = ParameterDirection.Output, DbType = DbType.Int32 }
+
+            };
+            var result = await resRepository.GetOutPut(Constants.StoreProcedure.COUNT_BRANCH_DETAIL, prams);
+            var output = new List<int>();
+            if (result == null) return output;
+
+            foreach(var i in result.ToArray())
+            {
+                output.Add(Int32.Parse(i.Value.ToString()));
+            }
+            return output;
+        }
+
         #endregion
 
     }

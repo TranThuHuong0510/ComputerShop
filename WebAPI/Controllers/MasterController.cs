@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Common.Object;
+using Common.Utility;
 using Service;
 using Service.ViewModels;
 using WebAPI.Controllers;
@@ -90,7 +91,7 @@ namespace API.Controllers
 
             {
                 //var output = _masterService.GetBranchDetail(branchId);
-                var output = _masterService.GetBranchDetail2(branchId);
+                var output = await _masterService.CountStorerOfBranch(branchId);
                 var result = new ObjectResult
                 {
                     StatusCode = 201,
@@ -104,6 +105,48 @@ namespace API.Controllers
                 return NotFoundErrorResult();
             }
         }
+
+        [Route("Image")]
+        [HttpPost]
+        public async Task<IHttpActionResult> TestImage()
+        {
+            try
+
+            {
+                var httpRequest = HttpContext.Current.Request;
+                var formData = httpRequest.Params;
+                var fileData = httpRequest.Files;
+
+                var output = string.Empty;
+
+                if (fileData.Count > 0)
+                {
+                    var uploadedFileResult = UploadUltil.UploadImage("Image", 5000000);
+                    output = uploadedFileResult.UploadFileObject[0].FilePath;
+                }
+                else
+                    output = formData["ImagePath"];
+
+
+
+                //var output = await _masterService.InsertBranch(viewModel);
+                ////var output = await _masterService.InsertBranch2(viewModel);
+                //if (output == false) return InternalServerErrorResult();
+                var result = new ObjectResult
+                {
+                    StatusCode = 201,
+                    Message = "Save data successfully",
+                    Result = output
+                };
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerErrorResult();
+            }
+        }
+
         #endregion
 
         #region PrivateMethod
