@@ -80,26 +80,26 @@ namespace API.Controllers
                 return InternalServerErrorResult();
             }
         }
-        [Route("Get_Product/{id}")]
-        [HttpGet]
-        public async Task<IHttpActionResult> Get_Product([FromUri] Guid id)
-        {
-            try
-            {
-                var output = await _masterService.GetProduct(id);
-                var result = new ObjectResult
-                {
-                    StatusCode = 201,
-                    Message = "Get data successfully",
-                    Result = output
-                };
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return NotFoundErrorResult();
-            }
-        }
+        //[Route("Get_Product/{id}")]
+        //[HttpGet]
+        //public async Task<IHttpActionResult> Get_Product([FromUri] Guid id)
+        //{
+        //    try
+        //    {
+        //        var output = await _masterService.GetProduct(id);
+        //        var result = new ObjectResult
+        //        {
+        //            StatusCode = 201,
+        //            Message = "Get data successfully",
+        //            Result = output
+        //        };
+        //        return Ok(result);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return NotFoundErrorResult();
+        //    }
+        //}
         [Route("Get_Product2/{ProductID}")]
         [HttpGet]
         public async Task<IHttpActionResult> Get_Product2([FromUri] string ProductID)
